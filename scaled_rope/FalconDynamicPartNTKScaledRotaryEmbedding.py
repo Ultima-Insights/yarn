@@ -1,5 +1,6 @@
 import torch
 import math
+from typing import Union
 
 # rotary pos emb helpers (torch.jit.script does not seem to support staticmethod...)
 def rotate_half(x):
@@ -45,8 +46,8 @@ class FalconDynamicPartNTKScaledRotaryEmbedding(torch.nn.Module):
         self.head_dim = head_dim
         self.seq_len_cached = None
         self.batch_size_cached = None
-        self.cos_cached: torch.Tensor | None = None
-        self.sin_cached: torch.Tensor | None = None
+        self.cos_cached: Union[torch.Tensor, None] = None
+        self.sin_cached: Union[torch.Tensor, None] = None
         self.base = base
         self.ntk_factor = ntk_factor
         self.extrapolation_factor = extrapolation_factor
